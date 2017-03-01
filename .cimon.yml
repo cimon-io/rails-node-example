@@ -47,7 +47,7 @@ server:
     - sh -c "cd ./backend && bin/rake db:migrate db:seed"
     - sh -c "cd ./backend && bin/rake assets:precompile"
   service: rails
-  dependencies: [postgresql, redis]
+  dependencies: [mysql, redis]
   folder: /app
   cmd: foreman start
   port: 80
