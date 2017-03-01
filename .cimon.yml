@@ -36,7 +36,7 @@ test:
   service: rails
   dependencies: [mysql, redis]
   folder: /app
-  cmd: - sh -c "cd ./backend && bin/rspec -f d"
+  cmd: sh -c "cd ./backend && bin/rspec -f d"
   env:
     - RAILS_ENV=test
     - RACK_ENV=test
