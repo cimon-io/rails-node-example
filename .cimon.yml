@@ -22,9 +22,11 @@ services:
       - apt-get install -y curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev
       - apt-get install build-essential
       - gem install foreman
+      - gem install bundler
 
 test:
   prepare:
+    - ls ./backend
     - cd ./backend && bundle install --path /bundle
     # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
     - cd ./backend && bin/rake db:create
