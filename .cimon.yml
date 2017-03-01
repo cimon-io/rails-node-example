@@ -29,7 +29,6 @@ services:
 
 test:
   prepare:
-    - ls ./backend
     - sh -c "cd ./backend && bundle install --path /bundle"
     # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
     # - sh -c "cd ./backend && bin/rake db:create"
@@ -40,25 +39,22 @@ test:
   env:
     - RAILS_ENV=test
     - RACK_ENV=test
-    - REDIS
 
-# server:
-#   except: master
-#   prepare:
-#     - bundle install --path /bundle
-#     - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
-#     - bin/rake db:create db:migrate db:seed
-#     - bin/rake assets:precompile
-#   service: rails
-#   dependencies: [postgresql, redis, elastic]
-#   folder: /app
-#   cmd: foreman start
-#   port: 80
-#   env:
-#     - SEED_NAMES=ghost
-#     - RAILS_ENV=staging
-#     - RACK_ENV=staging
-#     - PORT=80
+server:
+  prepare:
+    - sh -c "cd ./backend && bundle install --path /bundle"
+    # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
+    - sh -c "cd ./backend && bin/rake db:migrate db:seed"
+    - sh -c "cd ./backend && bin/rake assets:precompile"
+  service: rails
+  dependencies: [postgresql, redis]
+  folder: /app
+  cmd: foreman start
+  port: 80
+  env:
+    - RAILS_ENV=production
+    - RACK_ENV=production
+    - PORT=80
 
 # staging:
 #   only: master
