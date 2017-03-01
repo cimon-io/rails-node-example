@@ -29,7 +29,7 @@ test:
   encoding: utf8
   pool: 5
   username: cimon
-  password: 6543210
+  password: 654321
   socket: /tmp/mysql.sock
   database: backend_test
 
@@ -57,6 +57,6 @@ production:
   encoding: utf8
   pool: 5
   username: cimon
-  password: 6543210
+  password: 654321
   socket: /tmp/mysql.sock
   database: backend_test
