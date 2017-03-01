@@ -1,10 +1,12 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :put_current_time_to_redis, only: :index
 
   # GET /articles
   # GET /articles.json
   def index
     @articles = Article.all
+    @current_time = $redis.get('current_time')
   end
 
   # GET /articles/1
@@ -70,5 +72,9 @@ class ArticlesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
       params.require(:article).permit(:title, :body, :author, :views_count)
+    end
+
+    def put_current_time_to_redis
+      $redis.set("current_time", Time.now.to_i)
     end
 end
