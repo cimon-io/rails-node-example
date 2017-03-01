@@ -27,7 +27,7 @@ services:
 test:
   prepare:
     - ls ./backend
-    - cd ./backend && bundle install --path /bundle
+    - sh -c "cd ./backend && bundle install --path /bundle" 
     # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
     - cd ./backend && bin/rake db:create
   service: rails
