@@ -3,7 +3,7 @@ services:
     from: mysql/mysql-server:5.6
     env:
       - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=test_database
+      - MYSQL_DATABASE=backend_test
       - MYSQL_USER=cimon
       - MYSQL_PASSWORD=654321
   # elastic:
@@ -18,7 +18,7 @@ services:
       - /app/public/assets
       - /app/public/uploads
     env:
-      - DATABASE_URL=mysql2://cimon:654321@127.0.0.1:3306
+      - DATABASE_URL=mysql2://cimon:654321@127.0.0.1:3306/backend_test
     build:
       - apt-get update
       - apt-get install -y libqt4-dev pkg-config
