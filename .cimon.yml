@@ -1,6 +1,6 @@
 services:
   mysql:
-    from: mysql-server:5.6
+    from: mysql/mysql-server:5.6
     env:
       - MYSQL_ROOT_PASSWORD=123456
   # elastic:
