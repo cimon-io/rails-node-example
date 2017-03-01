@@ -40,21 +40,21 @@ test:
     - RAILS_ENV=test
     - RACK_ENV=test
 
-server:
-  prepare:
-    - sh -c "cd ./backend && bundle install --path /bundle"
-    # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
-    - sh -c "cd ./backend && bin/rake db:migrate db:seed"
-    - sh -c "cd ./backend && bin/rake assets:precompile"
-  service: rails
-  dependencies: [mysql, redis]
-  folder: /app
-  cmd: foreman start
-  port: 80
-  env:
-    - RAILS_ENV=production
-    - RACK_ENV=production
-    - PORT=80
+# server:
+#   prepare:
+#     - sh -c "cd ./backend && bundle install --path /bundle"
+#     # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
+#     - sh -c "cd ./backend && bin/rake db:migrate db:seed"
+#     - sh -c "cd ./backend && bin/rake assets:precompile"
+#   service: rails
+#   dependencies: [mysql, redis]
+#   folder: /app
+#   cmd: foreman start
+#   port: 80
+#   env:
+#     - RAILS_ENV=production
+#     - RACK_ENV=production
+#     - PORT=80
 
 # staging:
 #   only: master
