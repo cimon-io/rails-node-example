@@ -5,7 +5,7 @@ services:
       - MYSQL_ROOT_PASSWORD=123456
       - MYSQL_DATABASE=backend_test
       - MYSQL_USER=cimon
-      - MYSQL_PASSWORD=654321
+      - MYSQL_PASSWORD=6543210
   # elastic:
     # from: elasticsearch
   redis:
@@ -18,7 +18,7 @@ services:
       - /app/public/assets
       - /app/public/uploads
     env:
-      # - DATABASE_URL=mysql2://cimon:654321@127.0.0.1:3306/backend_test
+      - DATABASE_URL=mysql2://cimon:6543210@127.0.0.1:3306/backend_test
     build:
       - apt-get update
       - apt-get install -y libqt4-dev pkg-config
@@ -40,7 +40,6 @@ test:
   env:
     - RAILS_ENV=test
     - RACK_ENV=test
-    - REDIS
 
 # server:
 #   except: master
