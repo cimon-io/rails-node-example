@@ -41,7 +41,7 @@ test:
     - RAILS_ENV=test
     - RACK_ENV=test
 
-server:
+staging:
   prepare:
     - ls ./backend
     - sh -c "cd ./backend && bundle install --path /bundle"
