@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [:edit, :update, :destroy]
   before_action :put_current_time_to_redis, only: :index
 
   # GET /articles
@@ -20,6 +20,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    render json: {message: 'ok'}
   end
 
   # GET /articles/new
