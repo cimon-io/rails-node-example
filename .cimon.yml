@@ -1,0 +1,61 @@
+services:
+  mysql:
+    from: mysql/mysql-server:5.6
+    env:
+      - MYSQL_ROOT_PASSWORD=0123456
+      - MYSQL_DATABASE=backend_test_db
+      - MYSQL_USER=cimon
+      - MYSQL_PASSWORD=6543210
+  elastic:
+    from: elasticsearch:2.2.1
+  redis:
+    from: redis:3.0.2
+
+  rails:
+    from: mwallasch/docker-ruby-node
+    cache:
+      - /bundle
+      - /app/public/assets
+      - /app/public/uploads
+    env:
+      - DATABASE_URL=mysql2://cimon:6543210@127.0.0.1:3306/backend_test_db
+    build:
+      - apt-get update
+      - apt-get install --reinstall wamerican
+      - apt-get install -y libqt4-dev pkg-config
+      - apt-get install -y curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev libmysqlclient-dev
+      - apt-get install build-essential
+      - gem install foreman
+      - gem install bundler -v 1.3.6
+test:
+  prepare:
+    - sh -c "cd ./backend && bundle install --path /bundle --quiet"
+    - sh -c 'sleep 30'
+    - sh -c "cd ./backend && bundle exec rake db:schema:load test --trace"
+    # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
+    # - sh -c "cd ./backend && bin/rake db:create"
+  service: rails
+  dependencies: [mysql, redis, elastic]
+  folder: /app
+  cmd: sh -c "cd ./backend && bin/rspec -f d"
+  env:
+    - RAILS_ENV=test
+    - RACK_ENV=test
+
+staging:
+  prepare:
+    - ls ./backend
+    - sh -c "cd ./backend && bundle install --path /bundle --quiet"
+    - sh -c 'sleep 30'
+    - sh -c "cd ./backend && bin/rake db:migrate --silent"
+    - sh -c "cd ./backend && bin/rake assets:precompile --silent"
+  service: rails
+  dependencies: [mysql, redis, elastic]
+  folder: /app
+  cmd: foreman start
+  port: 80
+  env:
+    - RAILS_ENV=production
+    - RACK_ENV=production
+    - PORT=80
+    - SECRET_KEY_BASE=ecf12e576da27f0ce0db83430f0a39643e860ca8b4b58d4066e93013c9861989b6

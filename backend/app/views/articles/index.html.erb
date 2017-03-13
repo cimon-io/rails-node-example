@@ -1,7 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Articles</h1>
-<h2><%= Time.at(@current_time.to_i)%></h2>
+<h2><%= Time.at(@current_time.to_i) %></h2>
+<ul>
+  <% @all_articles.each do |article| %>
+    <li><%= article.title %></li>
+  <% end %>
+</ul>
 <table>
   <thead>
     <tr>
