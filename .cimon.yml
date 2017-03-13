@@ -1,10 +1,10 @@
 services:
   mysql:
-    from: mysql/mysql-server:5.6
+    from: frodenas/mysql
     env:
       - MYSQL_ROOT_PASSWORD=0123456
-      - MYSQL_DATABASE=backend_test
-      - MYSQL_USER=cimon
+      - MYSQL_DBNAME=backend_test
+      - MYSQL_USERNAME=cimon
       - MYSQL_PASSWORD=6543210
   # elastic:
     # from: elasticsearch
