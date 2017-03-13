@@ -29,8 +29,7 @@ services:
 
 test:
   prepare:
-    - ls ./backend
-    - sh -c "cd ./backend && bundle install --path /bundle"
+    - sh -c "cd ./backend && bundle install --path /bundle --quiet"
     # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
     # - sh -c "cd ./backend && bin/rake db:create"
   service: rails
@@ -44,9 +43,9 @@ test:
 staging:
   prepare:
     - ls ./backend
-    - sh -c "cd ./backend && bundle install --path /bundle"
-    - sh -c "cd ./backend && bin/rake db:migrate"
-    - sh -c "cd ./backend && bin/rake assets:precompile"
+    - sh -c "cd ./backend && bundle install --path /bundle --quiet"
+    - sh -c "cd ./backend && bin/rake db:migrate --silent"
+    - sh -c "cd ./backend && bin/rake assets:precompile --silent"
 
     # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
   service: rails
