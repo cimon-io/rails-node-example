@@ -1,10 +1,10 @@
 services:
   mysql:
-    from: frodenas/mysql
+    from: mysql/mysql-server:5.6
     env:
       - MYSQL_ROOT_PASSWORD=0123456
-      - MYSQL_DBNAME=backend_test
-      - MYSQL_USERNAME=cimon
+      - MYSQL_DATABASE=backend_test_db
+      - MYSQL_USER=cimon
       - MYSQL_PASSWORD=6543210
   # elastic:
     # from: elasticsearch
@@ -18,7 +18,7 @@ services:
       - /app/public/assets
       - /app/public/uploads
     env:
-      - DATABASE_URL=mysql2://cimon:6543210@127.0.0.1:3306/backend_test
+      - DATABASE_URL=mysql2://cimon:6543210@127.0.0.1:3306/backend_test_db
     build:
       - apt-get update
       - apt-get install -y libqt4-dev pkg-config
