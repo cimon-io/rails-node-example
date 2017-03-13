@@ -7,6 +7,14 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all
     @current_time = $redis.get('current_time')
+    @all_articles = []
+    if params[:q].present?
+      @all_articles = Tire.search 'articles' do |search|
+        search.query do |query|
+          query.string params[:q]
+        end
+      end.results
+    end
   end
 
   # GET /articles/1
