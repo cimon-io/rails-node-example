@@ -44,11 +44,9 @@ staging:
   prepare:
     - ls ./backend
     - sh -c "cd ./backend && bundle install --path /bundle --quiet"
-    - sh -c "echo -n 'Waiting for mysql:' && while ! nc 127.0.0.1 3306 </dev/null; do echo -n '.'; sleep 30; done && echo -n ' Done\n'"
+    - sh -c 'sleep 30'
     - sh -c "cd ./backend && bin/rake db:migrate --silent"
     - sh -c "cd ./backend && bin/rake assets:precompile --silent"
-
-
   service: rails
   dependencies: [mysqlpp1, redis]
   folder: /app
