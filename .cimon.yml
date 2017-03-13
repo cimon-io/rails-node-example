@@ -7,7 +7,7 @@ services:
       - MYSQL_USER=cimon
       - MYSQL_PASSWORD=6543210
   elastic:
-    from: docker.elastic.co/elasticsearch/elasticsearch:2.2.1
+    from: elasticsearch:2.2.1
   redis:
     from: redis:3.0.2
 
