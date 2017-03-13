@@ -57,6 +57,7 @@ staging:
     - RAILS_ENV=production
     - RACK_ENV=production
     - PORT=80
+    - SECRET_KEY_BASE=ecf12e576da27f0ce0db83430f0a39643e860ca8b4b58d4066e9354560d572bc136278cc60ef357813ab1c6c6861ab19d2623b6e06bd8a9b1bd013c9861989b6
 
 # staging:
 #   only: master
