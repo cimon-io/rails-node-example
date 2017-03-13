@@ -1,5 +1,5 @@
 services:
-  mysql:
+  mysql2:
     from: mysql/mysql-server:5.6
     env:
       - MYSQL_ROOT_PASSWORD=0123456
@@ -33,7 +33,7 @@ test:
     # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
     # - sh -c "cd ./backend && bin/rake db:create"
   service: rails
-  dependencies: [mysql, redis]
+  dependencies: [mysql2, redis]
   folder: /app
   cmd: sh -c "cd ./backend && bin/rspec -f d"
   env:
@@ -57,7 +57,7 @@ staging:
     - RAILS_ENV=production
     - RACK_ENV=production
     - PORT=80
-    - SECRET_KEY_BASE=ecf12e576da27f0ce0db83430f0a39643e860ca8b4b58d4066e9354560d572bc136278cc60ef357813ab1c6c6861ab19d2623b6e06bd8a9b1bd013c9861989b6
+    - SECRET_KEY_BASE=ecf12e576da27f0ce0db83430f0a39643e860ca8b4b58d4066e93013c9861989b6
 
 # staging:
 #   only: master
