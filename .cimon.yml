@@ -49,6 +49,9 @@ staging:
     - sh -c 'sleep 30'
     - sh -c "cd ./backend && bin/rake db:migrate --silent"
     - sh -c "cd ./backend && bin/rake assets:precompile --silent"
+    - sh -c "cd ./frontend && npm install"
+    - sh -c "cd ./frontend && npm install bower -g"
+    - sh -c "cd ./frontend && bower install"
   service: rails
   dependencies: [mysql, redis, elastic]
   folder: /app
