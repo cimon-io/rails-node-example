@@ -23,7 +23,7 @@ services:
       - apt-get update
       - apt-get install --reinstall wamerican
       - apt-get install -y libqt4-dev pkg-config
-      - apt-get install -y curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev libmysqlclient-dev
+      - apt-get install -y curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev libmysqlclient-dev gnu-netcat
       - apt-get install build-essential
       - gem install foreman
       - gem install bundler -v 1.3.6
