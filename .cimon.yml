@@ -12,7 +12,7 @@ services:
     from: redis:3.0.2
 
   rails:
-    from: mwallasch/docker-ruby-node
+    from: off8glazziq/rails-nodejs
     cache:
       - /bundle
       - /app/public/assets
@@ -29,26 +29,27 @@ services:
       - gem install bundler -v 1.3.6
 test:
   prepare:
-    - sh -c "cd ./backend && bundle install --path /bundle --quiet"
-    - sh -c 'sleep 30'
-    - sh -c "cd ./backend && bundle exec rake db:schema:load test --trace"
+    - cd ./backend && bundle install --path /bundle --quiet
+    - sleep 30
+    - cd ./backend && bundle exec rake db:schema:load test --trace
     # - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
     # - sh -c "cd ./backend && bin/rake db:create"
   service: rails
   dependencies: [mysql, redis, elastic]
   folder: /app
-  cmd: sh -c "cd ./backend && bin/rspec -f d"
+  cmd: cd ./backend && bin/rspec -f d
   env:
     - RAILS_ENV=test
     - RACK_ENV=test
 
 staging:
   prepare:
-    - sh -c "cd ./backend && bundle install --path /bundle --quiet"
-    - sh -c 'sleep 30'
-    - sh -c "cd ./backend && bin/rake db:migrate --silent"
-    - sh -c "cd ./backend && bin/rake assets:precompile --silent"
-    - sh -c "cd ./frontend && npm install --silent"
+    - cd ./backend && bundle install --path /bundle --quiet
+    - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
+    - echo -n 'Waiting for mysql:' && while ! nc 127.0.0.1 3306 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
+    - cd ./backend && bin/rake db:migrate --silent
+    - cd ./backend && bin/rake assets:precompile --silent
+    - cd ./frontend && npm install --silent
     # - sh -c "cd ./frontend && npm install bower -g"
     # - sh -c "cd ./frontend && bower install --allow-root"
   service: rails
