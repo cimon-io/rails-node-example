@@ -45,8 +45,8 @@ test:
 staging:
   prepare:
     - sh -c "cd ./backend && bundle install --path /bundle --quiet"
-    - sh -c "echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'"
-    - sh -c "echo -n 'Waiting for mysql:' && while ! nc 127.0.0.1 3306 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'"
+    - echo -n 'Waiting for elasticsearch:' && while ! nc 127.0.0.1 9200 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
+    - echo -n 'Waiting for mysql:' && while ! nc 127.0.0.1 3306 </dev/null; do echo -n '.'; sleep 1; done && echo -n ' Done\n'
     - sh -c "cd ./backend && bin/rake db:migrate --silent"
     - sh -c "cd ./backend && bin/rake assets:precompile --silent"
     - sh -c "cd ./frontend && npm install --silent"
