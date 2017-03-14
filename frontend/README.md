@@ -1,21 +1,92 @@
-# Brunch + React + Babel/ES6
+##Word Finder (MIT License)
 
-This is a modern JS skeleton with React for [Brunch](http://brunch.io).
+I took every english word (over 200k words) and built a little NodeJS
+app that will help you find words that contain specific characters.
 
-## Installation
+Additionally, here are instructions to deploy this app to Heroku.
 
-Clone this repo manually or use `brunch new dir -s brunch/with-react`
+##How to Use
 
-## Getting started
+###The underscore
 
-* Install (if you don't have them):
-    * [Node.js](http://nodejs.org): `brew install node` on OS X
-    * [Brunch](http://brunch.io): `npm install -g brunch`
-    * Brunch plugins and app dependencies: `npm install`
-* Run:
-    * `npm start` — watches the project with continuous rebuild. This will also launch HTTP server with [pushState](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history).
-    * `npm run build` — builds minified project for production
-* Learn:
-    * `public/` dir is fully auto-generated and served by HTTP server.  Write your code in `app/` dir.
-    * Place static files you want to be copied from `app/assets/` to `public/`.
-    * [Brunch site](http://brunch.io), [Getting started guide](https://github.com/brunch/brunch-guide#readme)
+Type a word into the text box with the following pattern:
+
+    he__o
+
+And you'll get words such as:
+
+    hello
+    helio
+
+###The question mark
+
+This character is great for games like What's the Phrase (a knock off
+of Wheel of Fortune)
+
+Type a word into the text box with the following pattern:
+
+    st???
+
+and you'll get words such as:
+
+    stack
+    stade
+    staff
+    stage
+    stagy
+
+but you wont get words like
+
+    start
+
+because the `t` would already be visible (in What's the Phrase), and
+you would have typed:
+
+    st??t
+
+##Instructions for running
+
+Go to http://nodejs.org and install NodeJS
+
+Then clone this repo:
+
+    git clone https://github.com/amirrajan/word-finder.git
+
+And `cd` into the directory (all instructions below assume you are in
+the `word-finder` directory:
+
+    cd word-finder
+
+##Run Locally
+
+Install all the dependencies:
+
+    npm install (you may need to prefix this with sudo if you're on Mac)
+
+Install `mocha`:
+
+    npm install mocha -g
+
+To run tests, type:
+
+    mocha --compilers js:babel-register
+
+If you want tests to execute every time you change a file:
+
+    brew install fswatch
+
+In another window run
+
+    fswatch test/search_spec.js | xargs -n1 -I{} mocha --compilers js:babel-register`
+
+Run the app:
+
+    node start.js
+
+Consider using the package `nodemon` if you'd like. It'll auto start your server
+every time you save.
+
+    npm install nodemon -g
+    nodemon start.js
+
+Then navigate to `http://localhost:3000`
